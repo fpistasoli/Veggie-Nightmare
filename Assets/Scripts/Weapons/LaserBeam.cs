@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace VeggieNightmare.Weapons
     public class LaserBeam : MonoBehaviour
     {
 
-        [SerializeField] private float speed = 1f;
+        [SerializeField] private float speed = 1f; 
 
         private Camera mainCamera;
 
@@ -23,11 +24,35 @@ namespace VeggieNightmare.Weapons
         // Update is called once per frame
         void Update()
         {
-            //avanzar con translate/addForce
+            Move();
+            DestroyIfOutOfSight();
+            
+        }
+
+        private void DestroyIfOutOfSight()
+        {
+            Vector3 viewportPosition = mainCamera.WorldToViewportPoint(transform.position);
+            if (viewportPosition.x > 1) { Destroy(gameObject); }
+        }
+
+        private void Move()
+        {
+            transform.Translate(-Vector3.up * speed * Time.deltaTime);
+
+            if(OutOfCameraBounds())
+            {
+                Destroy(gameObject);
+            }
+
+        }
+
+        private bool OutOfCameraBounds()
+        {
+            //TODO
+            return false;
+           
 
 
-
-            //si el laserbeam esta fuera de los limites de la follow camera, destruirlo
 
         }
     }
