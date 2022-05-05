@@ -38,17 +38,28 @@ namespace VeggieNightmare.Control
             rb = GetComponent<Rigidbody>();
             mainCamera = Camera.main;
             health = GetComponent<PlayerHealth>();
-
             distToGround = GetComponent<CapsuleCollider>().bounds.extents.y;
+
+            PlayerHealth.onDeath += OnDieHandler;
         }
+
+        private void OnDieHandler()
+        {
+            isDead = true;
+        }
+
         void Update()
         {
-            UpdatePlayerVelocity();
-            UpdateAnimator();
-            MovePlayer();
-            MoveCamera();
 
-            if(IsGrounded()) { jumpCount = 0; }
+            if (!isDead)
+            {
+                UpdatePlayerVelocity();
+                MovePlayer();
+                MoveCamera();
+                if (IsGrounded()) { jumpCount = 0; }
+            }
+            
+            UpdateAnimator();
 
         }
 
@@ -133,6 +144,13 @@ namespace VeggieNightmare.Control
         {
             return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
         }
+
+        private void OnDestroy()
+        {
+            PlayerHealth.onDeath -= OnDieHandler;
+        }
+
+
 
     }
 }

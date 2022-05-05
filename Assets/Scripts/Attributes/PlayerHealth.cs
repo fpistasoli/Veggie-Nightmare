@@ -25,30 +25,24 @@ namespace VeggieNightmare.Attributes
         void Update()
         {
 
-            CheckIfDead();
 
         }
 
-        private void CheckIfDead()
-        {
-            if (healthPoints == 0)
-            {
-                //onDeath?.Invoke();
-                //TODO: agregar subscribers en las clases que se suscriben a este evento
-                isDead = true;
-            }
-
-        }
 
         public void TakeDamage(GameObject instigator, float damage)
         {
-
             if(instigator.tag == "Enemy")
             {
                 healthPoints = Mathf.Max(0, healthPoints - damage);
             }
 
-                
+            if (healthPoints == 0)
+            {
+                onDeath?.Invoke();
+                isDead = true;
+            }
+
+
         }
 
 
