@@ -40,8 +40,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7220866141806128724}
   - component: {fileID: 7294791308398325384}
-  - component: {fileID: 4267657889854569266}
   - component: {fileID: 4138402285612766652}
+  - component: {fileID: 4267657889854569266}
   - component: {fileID: 6518278468254975494}
   m_Layer: 10
   m_Name: Player
@@ -81,6 +81,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!136 &4138402285612766652
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5587794203285018438}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.1750941
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.1001608, z: 0}
 --- !u!114 &4267657889854569266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,20 +115,6 @@ MonoBehaviour:
   laserBeamPrefab: {fileID: 4300734935795248263, guid: 411cd470ef1e0a24f896076b807a2ee1, type: 3}
   laserBeamSpawnPoint: {fileID: 2449284950047921925}
   timeBetweenlaserAttacks: 0
---- !u!136 &4138402285612766652
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5587794203285018438}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2.1750941
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.1001608, z: 0}
 --- !u!114 &6518278468254975494
 MonoBehaviour:
   m_ObjectHideFlags: 0
