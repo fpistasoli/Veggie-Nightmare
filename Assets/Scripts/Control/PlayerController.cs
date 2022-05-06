@@ -39,8 +39,16 @@ namespace VeggieNightmare.Control
             mainCamera = Camera.main;
             health = GetComponent<PlayerHealth>();
             distToGround = GetComponent<CapsuleCollider>().bounds.extents.y;
+        }
 
+        private void OnEnable()
+        {
             PlayerHealth.onDeath += OnDieHandler;
+        }
+
+        private void OnDisable()
+        {
+            PlayerHealth.onDeath -= OnDieHandler;
         }
 
         private void OnDieHandler()
@@ -144,13 +152,6 @@ namespace VeggieNightmare.Control
         {
             return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
         }
-
-        private void OnDestroy()
-        {
-            PlayerHealth.onDeath -= OnDieHandler;
-        }
-
-
 
     }
 }

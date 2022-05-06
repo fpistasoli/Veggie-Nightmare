@@ -16,7 +16,17 @@ namespace VeggieNightmare.UI
 
         private void Start()
         {
+          
+        }
+
+        private void OnEnable() //aca van las suscripciones a eventos
+        {
             PlayerHealth.onDeath += OnGameOverUIHandler;
+        }
+
+        private void OnDisable() //aca van las desuscripciones a eventos
+        {
+            PlayerHealth.onDeath -= OnGameOverUIHandler;
         }
 
         private void OnGameOverUIHandler()
@@ -36,10 +46,6 @@ namespace VeggieNightmare.UI
             player.GetComponent<PlayerController>().Attack();
         }
 
-        private void OnDestroy()
-        {
-            PlayerHealth.onDeath -= OnGameOverUIHandler;
-        }
 
 
     }
