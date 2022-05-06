@@ -1787,8 +1787,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5898959462075780151}
-  - component: {fileID: 4697737644084338360}
   - component: {fileID: 4478476134397137825}
+  - component: {fileID: 5065793662611724760}
+  - component: {fileID: 536720124815784365}
   m_Layer: 0
   m_Name: EvilTomato
   m_TagString: Enemy
@@ -1813,19 +1814,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4697737644084338360
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2902711620472238293}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.349567, y: 2.6755667, z: 1.9683492}
-  m_Center: {x: 0.03316331, y: 1.1929059, z: -0.06904864}
 --- !u!54 &4478476134397137825
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1840,8 +1828,36 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 48
   m_CollisionDetection: 0
+--- !u!114 &5065793662611724760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2902711620472238293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8c68bd5d8e2044cb9cfa41c9fb7d6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  evilness: 0
+  translationSpeed: 0
+  rotationSpeed: 0
+--- !u!135 &536720124815784365
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2902711620472238293}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.4245995
+  m_Center: {x: 0.08749938, y: 1.2365602, z: 0.057032585}
 --- !u!1 &6887032491526258052
 GameObject:
   m_ObjectHideFlags: 0
@@ -4106,8 +4122,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7590315622484295399}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.991, z: -0.994}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 1.31, z: -0.994}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 5898959462075780151}
   m_RootOrder: 1

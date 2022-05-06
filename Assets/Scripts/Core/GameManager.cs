@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VeggieNightmare.Control;
+using VeggieNightmare.Stats;
 
 namespace VeggieNightmare.Core
 {
@@ -13,6 +15,25 @@ namespace VeggieNightmare.Core
         public static int score;
         public static int[] highScorePerLevel;
         private int currentLevel;
+
+        private void OnEnable()
+        {
+            EvilVeggie.onEvilVeggieDeath += OnAwardPointsHandler;
+        }
+
+        private void OnDisable()
+        {
+            
+        }
+
+        private void OnAwardPointsHandler()
+        {
+            score += 5; 
+
+            //TODO (creo que se puede hacer con UnityEvent en lugar de Action y pasarle parametro)
+            //5 * MILD/TOUGH (o sea 5 * 1 ó 5 * 2); por ahora hacer que me otorgue 5 puntos sea mild o tough
+
+        }
 
         private void Awake()
         {

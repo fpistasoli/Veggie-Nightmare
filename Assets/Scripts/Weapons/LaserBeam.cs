@@ -8,7 +8,8 @@ namespace VeggieNightmare.Weapons
     public class LaserBeam : MonoBehaviour
     {
 
-        [SerializeField] private float speed = 1f; 
+        [SerializeField] private float speed = 1f;
+        [SerializeField] private float damage = 1f;
 
         private Camera mainCamera;
 
