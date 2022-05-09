@@ -111,7 +111,6 @@ namespace VeggieNightmare.Control
             if(jumpCount>=maxJumps) { return; }
 
             jumpCount++;
-            Debug.Log(jumpCount);
             if (rb.velocity.y >= minVerticalVelocityToJump && rb.velocity.y <= maxVerticalVelocityToJump) 
             {
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);

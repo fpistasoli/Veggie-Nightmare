@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,27 @@ namespace VeggieNightmare.Control
 {
     public class EvilCarrot : EvilVeggie
     {
+        [SerializeField] private float jumpForce;
+        [SerializeField] private float distToGroundOffset = 0.6f;
+        [SerializeField] private float maxVelocity;
+
+        private float distToGround;
+        private Rigidbody rb;
+
         protected override void Start()
         {
+            rb = GetComponent<Rigidbody>();
+            distToGround = GetComponent<BoxCollider>().bounds.extents.y;
             base.Start();
+        }
 
+        private void FixedUpdate()
+        {
+            if (IsGrounded())
+            {
+                rb.velocity = Vector3.zero;
+                Jump();
+            }
         }
 
         protected override void Update()
@@ -51,11 +69,23 @@ namespace VeggieNightmare.Control
 
         public override void Move()
         {
-
+            //if(IsGrounded())
+           // {
+           //     rb.velocity = Vector3.zero;
+           //     Jump();
+           // }
         }
 
+        private void Jump()
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
+        }
 
-
+        public bool IsGrounded()
+        {
+            return Physics.Raycast(transform.position, -Vector3.up, distToGround + distToGroundOffset);
+        }
 
 
     }
