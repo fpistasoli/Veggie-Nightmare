@@ -5,21 +5,21 @@ using VeggieNightmare.Stats;
 
 namespace VeggieNightmare.Control
 {
-    public class EvilMushroom : EvilVeggie
+    public class EvilMushroom : EvilVeggie, IRollable
     {
+
+        [SerializeField] private float rotationSpeed;
+        private Rigidbody rb;
 
         protected override void Start()
         {
+            rb = GetComponent<Rigidbody>();
             base.Start();
-
         }
 
         protected override void Update()
         {
             base.Update();
-
-            Debug.Log(gameObject.name + "has damage points: " + damagePoints);
-            Debug.Log(gameObject.name + "has health points: " + healthPoints);
         }
 
         protected override void SetHealth()
@@ -55,10 +55,18 @@ namespace VeggieNightmare.Control
 
         public override void Move()
         {
-            //static enemy
+            Roll();
         }
 
+        public void Roll()
+        {
+            Quaternion currentRotation = transform.rotation;
 
+            Quaternion targetRotation = Quaternion.Euler(0, 180, 0);
+            
+            transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, Time.deltaTime * rotationSpeed);
+        }
+ 
 
 
 

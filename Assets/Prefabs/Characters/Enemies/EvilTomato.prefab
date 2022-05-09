@@ -1827,7 +1827,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 48
   m_CollisionDetection: 0
 --- !u!114 &5065793662611724760
@@ -1844,7 +1844,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   evilness: 0
   translationSpeed: 0
+  smoothingFactor: 1
   rotationSpeed: 0
+  maxSpeed: 2.5
 --- !u!135 &536720124815784365
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1856,7 +1858,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.4245995
+  m_Radius: 1.5
   m_Center: {x: 0.08749938, y: 1.2365602, z: 0.057032585}
 --- !u!1 &6887032491526258052
 GameObject:

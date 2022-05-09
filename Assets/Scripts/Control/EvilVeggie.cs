@@ -38,6 +38,7 @@ namespace VeggieNightmare.Control
 
         public abstract void Move();
 
+
         public void DestroyIfOutOfSight() //se destruye si está vivo y fuera de la vista de la cámara
         {
             //TODO
