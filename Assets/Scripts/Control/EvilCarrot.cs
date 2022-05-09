@@ -13,14 +13,9 @@ namespace VeggieNightmare.Control
 
         }
 
-
-
         protected override void Update()
         {
             base.Update();
-
-            Debug.Log(gameObject.name + "has damage points: " + damagePoints);
-            Debug.Log(gameObject.name + "has health points: " + healthPoints);
         }
 
         protected override void SetHealth()
