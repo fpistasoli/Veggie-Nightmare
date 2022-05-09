@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VeggieNightmare.Control;
 
 namespace VeggieNightmare.Weapons
 {
@@ -12,14 +13,14 @@ namespace VeggieNightmare.Weapons
         [SerializeField] private float damage = 1f;
 
         private Camera mainCamera;
-
+        private GameObject player;
 
 
         // Start is called before the first frame update
         void Start()
         {
             mainCamera = Camera.main;
-
+            player = GameObject.FindWithTag("Player");
         }
 
         // Update is called once per frame
@@ -52,10 +53,31 @@ namespace VeggieNightmare.Weapons
             //TODO
             return false;
            
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if(collision.gameObject.CompareTag("Enemy"))
+            {
+                GameObject enemy = collision.gameObject;
+                enemy.GetComponent<EvilVeggie>().TakeDamage(player, damage);
+
+
+
+                //TODO: Run explosion animation
+
+
+
+                Destroy(gameObject);
+            }
+            
 
 
 
         }
+
+
+
     }
 
 }

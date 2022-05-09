@@ -29,6 +29,7 @@ namespace VeggieNightmare.Control
                 Move();
             }
 
+            Debug.Log("EVIL " + gameObject.name + " HAS " + healthPoints + " HEALTH POINTS");
         }
 
         protected abstract void SetHealth();

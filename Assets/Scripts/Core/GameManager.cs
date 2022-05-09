@@ -12,7 +12,7 @@ namespace VeggieNightmare.Core
         [SerializeField] private int numberOfLevels;
 
         public static GameManager sharedInstance;
-        public static int score;
+        public static int score = 0;
         public static int[] highScorePerLevel;
         private int currentLevel;
 
@@ -28,7 +28,7 @@ namespace VeggieNightmare.Core
 
         private void OnAwardPointsHandler()
         {
-            score += 5; 
+            score += 5;
 
             //TODO (creo que se puede hacer con UnityEvent en lugar de Action y pasarle parametro)
             //5 * MILD/TOUGH (o sea 5 * 1 ó 5 * 2); por ahora hacer que me otorgue 5 puntos sea mild o tough
@@ -75,7 +75,7 @@ namespace VeggieNightmare.Core
         // Update is called once per frame
         void Update()
         {
-
+            Debug.Log("SCORE: " + score);
         }
     }
 
