@@ -64,16 +64,11 @@ namespace VeggieNightmare.Control
                 damagePoints = damageP * 2;
             }
 
-
         }
 
         public override void Move()
         {
-            //if(IsGrounded())
-           // {
-           //     rb.velocity = Vector3.zero;
-           //     Jump();
-           // }
+
         }
 
         private void Jump()

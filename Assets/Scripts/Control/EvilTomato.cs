@@ -14,14 +14,12 @@ namespace VeggieNightmare.Control
         [SerializeField] private float cameraViewOffset = 0.1f;
 
         private float radius;
-        private Camera mainCamera;
         private Rigidbody rb;
 
         protected override void Start()
         {
             rb = GetComponent<Rigidbody>();
             radius = GetComponent<SphereCollider>().radius;
-            mainCamera = Camera.main;
             base.Start();
         }
 
@@ -101,7 +99,6 @@ namespace VeggieNightmare.Control
         private void MoveLeft()
         {
             rb.AddForce(Vector3.left * translationSpeed * Time.deltaTime, ForceMode.Impulse);
-            //transform.Translate(Vector3.left * translationSpeed * Time.deltaTime);
         }
 
         private bool IsViewableInCamera()

@@ -24,7 +24,7 @@ namespace VeggieNightmare.Attributes
         // Update is called once per frame
         void Update()
         {
-
+            Debug.Log("HEALTH POINTS: " + healthPoints + "/100");
 
         }
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5798024279668633290}
   - component: {fileID: 1086506616562370816}
   - component: {fileID: 6111952289143424774}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: LaserBeam
   m_TagString: Untagged
   m_Icon: {fileID: 0}

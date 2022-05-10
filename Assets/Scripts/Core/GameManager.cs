@@ -23,7 +23,7 @@ namespace VeggieNightmare.Core
 
         private void OnDisable()
         {
-            
+            EvilVeggie.onEvilVeggieDeath -= OnAwardPointsHandler;
         }
 
         private void OnAwardPointsHandler()

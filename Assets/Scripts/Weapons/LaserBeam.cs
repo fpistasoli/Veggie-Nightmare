@@ -61,13 +61,7 @@ namespace VeggieNightmare.Weapons
             {
                 GameObject enemy = collision.gameObject;
                 enemy.GetComponent<EvilVeggie>().TakeDamage(player, damage);
-
-
-
-                //TODO: Run explosion animation
-
-
-
+                enemy.GetComponent<EvilVeggie>().BlinkEffect();
                 Destroy(gameObject);
             }
             

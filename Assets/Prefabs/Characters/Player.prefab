@@ -40,9 +40,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7220866141806128724}
   - component: {fileID: 7294791308398325384}
-  - component: {fileID: 4138402285612766652}
   - component: {fileID: 4267657889854569266}
   - component: {fileID: 6518278468254975494}
+  - component: {fileID: 4138402285612766652}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -81,6 +81,38 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &4267657889854569266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5587794203285018438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9812a1df0b25df41ac242106a508f4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  jumpForce: 5
+  maxVerticalVelocityToJump: 2
+  minVerticalVelocityToJump: 0
+  maxVelocity: 10
+  laserBeamPrefab: {fileID: 4300734935795248263, guid: 411cd470ef1e0a24f896076b807a2ee1, type: 3}
+  laserBeamSpawnPoint: {fileID: 2449284950047921925}
+  timeBetweenlaserAttacks: 0.4
+--- !u!114 &6518278468254975494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5587794203285018438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c77b13c6d7da7408dc723c40c8874f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &4138402285612766652
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -95,38 +127,6 @@ CapsuleCollider:
   m_Height: 2.1750941
   m_Direction: 1
   m_Center: {x: 0, y: 1.1001608, z: 0}
---- !u!114 &4267657889854569266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5587794203285018438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9812a1df0b25df41ac242106a508f4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
-  jumpForce: 0
-  maxVerticalVelocityToJump: 0.5
-  minVerticalVelocityToJump: 0
-  maxVelocity: 0
-  laserBeamPrefab: {fileID: 4300734935795248263, guid: 411cd470ef1e0a24f896076b807a2ee1, type: 3}
-  laserBeamSpawnPoint: {fileID: 2449284950047921925}
-  timeBetweenlaserAttacks: 0
---- !u!114 &6518278468254975494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5587794203285018438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c77b13c6d7da7408dc723c40c8874f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7870652183944636560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -364,7 +364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4191233909952520407, guid: 472eda4c7fef9044098f07d1125affaf, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4192829334818163760, guid: 472eda4c7fef9044098f07d1125affaf, type: 3}
       propertyPath: m_Layer
@@ -646,3 +646,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3850880387190137684, guid: 472eda4c7fef9044098f07d1125affaf, type: 3}
   m_PrefabInstance: {fileID: 7870652183944636560}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6273634664630880327 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4191233909952520407, guid: 472eda4c7fef9044098f07d1125affaf, type: 3}
+  m_PrefabInstance: {fileID: 7870652183944636560}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &4021656011281539468
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6273634664630880327}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.89752716, y: 0.5247913, z: 1.1240176}
+  m_Center: {x: -0.0000000037252903, y: 0.024454266, z: 0.5220584}
+--- !u!114 &1714074923550450299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6273634664630880327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d81c38e15d783d4da0d6cca37b36993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 5587794203285018438}
