@@ -81,18 +81,13 @@ namespace VeggieNightmare.Control
             if(!isDead)
             {
                 animator.SetBool("isWalk", true);
-             
-       
-
 
             }
             else
             {
                 //Dead animation
 
-
             }
-
           
         }
 
@@ -126,11 +121,8 @@ namespace VeggieNightmare.Control
                 StartCoroutine(RunLaserAttackTimer());
             }
 
-            
 
             //ADD TIMER: TIME BETWEEN ATTACKS (que pueda lanzar los beams cada 3 seg mínimo x ej)
-        
-
 
 
         }
@@ -151,6 +143,40 @@ namespace VeggieNightmare.Control
         {
             return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
         }
+
+
+
+
+        /*
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "Enemy")
+            {
+                GameObject enemy = other.gameObject;
+                health.TakeDamage(enemy, enemy.GetComponent<EvilVeggie>().GetDamagePoints());
+
+            }
+        }
+
+        private Collider GetEnemyCollider(GameObject enemy)
+        {
+            if (enemy.GetComponent<SphereCollider>() != null) { return enemy.GetComponent<SphereCollider>(); }
+            if (enemy.GetComponent<BoxCollider>() != null) { return enemy.GetComponent<BoxCollider>(); }
+            else return null;
+        }
+
+        /*
+        private void OnCollisionExit(Collision collision)
+        {
+            if (collision.gameObject.tag == "Enemy")
+            {
+                GameObject enemy = collision.gameObject;
+
+                Collider enemyCollider = GetEnemyCollider(enemy);
+                enemyCollider.enabled = true;
+            }
+        }
+        */
 
     }
 }

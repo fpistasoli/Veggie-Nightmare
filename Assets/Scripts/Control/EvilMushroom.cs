@@ -55,7 +55,7 @@ namespace VeggieNightmare.Control
 
         public override void Move()
         {
-            Roll();
+            //Roll();
         }
 
         public void Roll()
