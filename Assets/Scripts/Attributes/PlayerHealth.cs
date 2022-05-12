@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VeggieNightmare.Control;
 
 namespace VeggieNightmare.Attributes
 {
@@ -34,6 +35,7 @@ namespace VeggieNightmare.Attributes
             if(instigator.tag == "Enemy")
             {
                 healthPoints = Mathf.Max(0, healthPoints - damage);
+                gameObject.GetComponent<PlayerController>().BlinkEffect();
             }
 
             if (healthPoints == 0)

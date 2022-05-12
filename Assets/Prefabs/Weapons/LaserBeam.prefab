@@ -93,10 +93,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
+  m_Radius: 1.5907866
+  m_Height: 2.194599
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0.21988475, y: 0.014637399, z: 0.14509144}
 --- !u!114 &6111952289143424774
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,7 +17,9 @@ namespace VeggieNightmare.Control
         [SerializeField] private float maxVelocity;
         [SerializeField] private GameObject laserBeamPrefab;
         [SerializeField] private GameObject laserBeamSpawnPoint;
+        [SerializeField] private GameObject body;
         [SerializeField] private float timeBetweenlaserAttacks;
+        [SerializeField] private float blinkEffectTime = 0.5f;
 
         private bool isDead = false;
         private float laserAttackTimer = 0f;
@@ -31,12 +33,13 @@ namespace VeggieNightmare.Control
         private Camera mainCamera;
         private PlayerHealth health;
 
- 
+
         void Start()
         {
+            mainCamera = Camera.main;
+
             animator = GetComponentInChildren<Animator>();
             rb = GetComponent<Rigidbody>();
-            mainCamera = Camera.main;
             health = GetComponent<PlayerHealth>();
             distToGround = GetComponent<CapsuleCollider>().bounds.extents.y;
         }
@@ -145,7 +148,28 @@ namespace VeggieNightmare.Control
         }
 
 
+        //TODO
+        public void BlinkEffect()
+        {
+            Material[] materials = body.GetComponent<SkinnedMeshRenderer>().materials;
+            foreach (Material mat in materials)
+            {
+                //hacer lo mas transparente posible cada material
+            }
 
+
+
+
+            Color oldMaterialColor = body.GetComponent<MeshRenderer>().materials[0].color;
+            body.GetComponent<MeshRenderer>().materials[0].SetColor("_Color", Color.white);
+            StartCoroutine(BlinkCoroutine(oldMaterialColor));
+        }
+
+        private IEnumerator BlinkCoroutine(Color oldMaterialColor)
+        {
+            yield return new WaitForSeconds(blinkEffectTime);
+            body.GetComponent<MeshRenderer>().materials[0].SetColor("_Color", oldMaterialColor);
+        }
 
         /*
         private void OnTriggerEnter(Collider other)
