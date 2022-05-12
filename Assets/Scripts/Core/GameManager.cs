@@ -10,6 +10,7 @@ namespace VeggieNightmare.Core
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private int numberOfLevels;
+        [SerializeField] private int attackReward = 5;
 
         public static GameManager sharedInstance;
         public static int score = 0;
@@ -18,17 +19,17 @@ namespace VeggieNightmare.Core
 
         private void OnEnable()
         {
-            EvilVeggie.onEvilVeggieDeath += OnAwardPointsHandler;
+            EvilVeggie.onEvilVeggieDamageTaken += OnAwardPointsHandler;
         }
 
         private void OnDisable()
         {
-            EvilVeggie.onEvilVeggieDeath -= OnAwardPointsHandler;
+            EvilVeggie.onEvilVeggieDamageTaken -= OnAwardPointsHandler;
         }
 
         private void OnAwardPointsHandler()
         {
-            score += 5;
+            score += attackReward;
 
             //TODO (creo que se puede hacer con UnityEvent en lugar de Action y pasarle parametro)
             //5 * MILD/TOUGH (o sea 5 * 1 ó 5 * 2); por ahora hacer que me otorgue 5 puntos sea mild o tough

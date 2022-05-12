@@ -10,16 +10,19 @@ namespace VeggieNightmare.Control
     {
         [SerializeField] protected EvilVeggieStats.Evilness evilness;
         [SerializeField] private GameObject toughEffect;
+        [SerializeField] private GameObject deathEffect;
         [SerializeField] private GameObject body;
         [SerializeField] private float blinkEffectTime = 0.5f;
+        [SerializeField] private float deathEffectDuration = 1.0f;
 
         protected float healthPoints;
         protected float damagePoints;
         protected bool isDead = false;
         protected Camera mainCamera;
+    
 
         //Events
-        public static event Action onEvilVeggieDeath;
+        public static event Action onEvilVeggieDamageTaken;
 
         protected virtual void Start()
         {
@@ -28,6 +31,12 @@ namespace VeggieNightmare.Control
             SetHealth();
             SetDamage();
             SetEvilnessEffect();
+            HideDeathEffect();
+        }
+
+        private void HideDeathEffect()
+        {
+            deathEffect.SetActive(false);
         }
 
         private void SetEvilnessEffect()
@@ -37,13 +46,8 @@ namespace VeggieNightmare.Control
 
         protected virtual void Update()
         {
-            if(!isDead)
-            {
-                Move();
-                DestroyIfOutOfSight();
-            }
-
-            //Debug.Log("EVIL " + gameObject.name + " HAS " + healthPoints + " HEALTH POINTS");
+            Move();
+            DestroyIfOutOfSight();
         }
 
         protected abstract void SetHealth();
@@ -65,19 +69,58 @@ namespace VeggieNightmare.Control
             if (instigator.tag == "Player")
             {
                 healthPoints = Mathf.Max(0, healthPoints - damage);
+                onEvilVeggieDamageTaken?.Invoke();
             }
 
             if (healthPoints == 0)
             {
-                onEvilVeggieDeath?.Invoke();
                 isDead = true;
 
+                GetComponent<Collider>().enabled = false;
 
-                //TODO: Run explosion animation
-
-
+                PlayDeathAnimation();
             }
 
+        }
+
+        private void PlayDeathAnimation()
+        {
+            
+            PlayDeathEffect();
+            HideEvilVeggie();
+        }
+
+        private void PlayDeathEffect()
+        {
+            Transform particleSystemTransform = deathEffect.transform.GetChild(0);
+            ParticleSystem particleSystem = particleSystemTransform.GetComponent<ParticleSystem>();
+
+            if (!particleSystem.isPlaying) 
+            {
+                particleSystem.Play();
+                StartCoroutine(WaitForOneParticleEffectCycle(particleSystem));
+            }
+        }
+
+        private IEnumerator WaitForOneParticleEffectCycle(ParticleSystem particleSystem)
+        {
+            yield return new WaitForSeconds(deathEffectDuration);
+            particleSystem.gameObject.SetActive(false);
+        }
+
+        private void HideEvilVeggie()
+        {
+            foreach(Transform child in transform)
+            {
+                if(child.tag != "DeathEffect")
+                {
+                    child.gameObject.SetActive(false);
+                }
+                else
+                {
+                    child.gameObject.SetActive(true);
+                }
+            }
         }
 
         public void BlinkEffect()
