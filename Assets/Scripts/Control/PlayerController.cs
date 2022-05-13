@@ -19,10 +19,12 @@ namespace VeggieNightmare.Control
         [SerializeField] private GameObject laserBeamSpawnPoint;
         [SerializeField] private GameObject body;
         [SerializeField] private float timeBetweenlaserAttacks;
-        [SerializeField] private float blinkEffectTime = 0.5f;
+        [SerializeField] private float blinkEffectTime = 0.1f;
 
+        private Material[] bodyMaterials;
         private bool isDead = false;
         private float laserAttackTimer = 0f;
+
         private int jumpCount = 0;
         private int maxJumps = 2;
         private float distToGround;
@@ -42,6 +44,7 @@ namespace VeggieNightmare.Control
             rb = GetComponent<Rigidbody>();
             health = GetComponent<PlayerHealth>();
             distToGround = GetComponent<CapsuleCollider>().bounds.extents.y;
+            bodyMaterials = body.GetComponent<SkinnedMeshRenderer>().materials;
         }
 
         private void OnEnable()
@@ -149,27 +152,33 @@ namespace VeggieNightmare.Control
 
 
         //TODO
-        public void BlinkEffect()
+        public void BlinkEffect(bool isOn)
         {
-            Material[] materials = body.GetComponent<SkinnedMeshRenderer>().materials;
-            foreach (Material mat in materials)
+            foreach (Material mat in bodyMaterials)
             {
-                //hacer lo mas transparente posible cada material
+                Color color;
+                if (isOn)
+                { 
+                    SetAlpha(out color, mat, 0);
+                }
+                else
+                {
+                    SetAlpha(out color, mat, 1);
+                }
+
+                mat.color = color;
+
             }
-
-
-
-
-            Color oldMaterialColor = body.GetComponent<MeshRenderer>().materials[0].color;
-            body.GetComponent<MeshRenderer>().materials[0].SetColor("_Color", Color.white);
-            StartCoroutine(BlinkCoroutine(oldMaterialColor));
         }
 
-        private IEnumerator BlinkCoroutine(Color oldMaterialColor)
+        private void SetAlpha(out Color color, Material mat, int alpha)
         {
-            yield return new WaitForSeconds(blinkEffectTime);
-            body.GetComponent<MeshRenderer>().materials[0].SetColor("_Color", oldMaterialColor);
+            color = mat.color;
+            color.a = alpha;
         }
+
+        public float GetBlinkEffectTime() => blinkEffectTime;
+
 
         /*
         private void OnTriggerEnter(Collider other)
