@@ -35,7 +35,6 @@ namespace VeggieNightmare.Attributes
             if(instigator.tag == "Enemy")
             {
                 healthPoints = Mathf.Max(0, healthPoints - damage);
-                gameObject.GetComponent<PlayerController>().BlinkEffect();
             }
 
             if (healthPoints == 0)
@@ -43,11 +42,12 @@ namespace VeggieNightmare.Attributes
                 onDeath?.Invoke();
                 isDead = true;
             }
-
-
         }
 
-
+        public void Heal(float healthBoost)
+        {
+            healthPoints = Mathf.Min(healthPoints + healthBoost, 100);
+        }
 
 
 
