@@ -34,7 +34,7 @@ namespace VeggieNightmare.Control
         {
             if(other.gameObject.tag == "Player")
             {
-                onHeal?.Invoke(healthBoost);
+                onHeal?.Invoke(healthBoost); //UnityEvent
                 Destroy(gameObject);
             }
         }

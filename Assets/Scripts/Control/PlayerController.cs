@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using VeggieNightmare.Attributes;
 
@@ -24,16 +25,19 @@ namespace VeggieNightmare.Control
         private Material[] bodyMaterials;
         private bool isDead = false;
         private float laserAttackTimer = 0f;
-
         private int jumpCount = 0;
         private int maxJumps = 2;
         private float distToGround;
         private Vector3 playerVelocity;
+        private float fullHealth = 100f;
 
         private Animator animator;
         private Rigidbody rb;
         private Camera mainCamera;
         private PlayerHealth health;
+
+        //Events
+        public UnityEvent<float> onFullHealthTap;
 
 
         void Start()
@@ -71,10 +75,68 @@ namespace VeggieNightmare.Control
                 MovePlayer();
                 MoveCamera();
                 if (IsGrounded()) { jumpCount = 0; }
+                ProcessInput();
             }
             
             UpdateAnimator();
 
+        }
+
+        private void ProcessInput()
+        {
+
+            ProcessFullHeartBoostTouch();
+
+            //other potential touch input processes...
+        }
+
+        private void ProcessFullHeartBoostTouch()
+        {
+            GameObject[] fullHeartBoosts = GameObject.FindGameObjectsWithTag("FullHeartBoost");
+
+            List<GameObject> fullHeartBoostsViewable = new List<GameObject>();
+
+            bool canProcessInput = false;
+
+            foreach (GameObject boost in fullHeartBoosts)
+            {
+                FullHeartBoost boostScript = boost.GetComponent<FullHeartBoost>();
+
+                if(boostScript.IsViewableInCamera())
+                {
+                    canProcessInput = true;
+                    fullHeartBoostsViewable.Add(boost);
+                }
+            }
+
+            if(canProcessInput)
+            {
+                if (Touchscreen.current.primaryTouch.press.isPressed)
+                {
+                    Vector2 touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+                    //Vector3 worldPosition = mainCamera.ScreenToWorldPoint(touchPosition);
+                    Vector3 screenPoint = new Vector3(touchPosition.x, touchPosition.y, 0);
+
+                    foreach(GameObject fullHeartBoostViewable in fullHeartBoostsViewable)
+                    {
+                        Ray ray = mainCamera.ScreenPointToRay(screenPoint);
+                        RaycastHit[] hits = Physics.RaycastAll(ray);
+
+                        if (hits.Length != 0)
+                        {
+                            for (int i = 0; i < hits.Length; i++)
+                            {
+                                if (hits[i].collider.tag == "FullHeartBoost")
+                                {
+                                    onFullHealthTap?.Invoke(fullHealth);
+                                    fullHeartBoostViewable.SetActive(false);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void UpdatePlayerVelocity()
