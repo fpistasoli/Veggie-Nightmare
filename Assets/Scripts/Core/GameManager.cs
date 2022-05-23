@@ -66,7 +66,6 @@ namespace VeggieNightmare.Core
             set { currentLevel = value; }
         }
 
-
         // Start is called before the first frame update
         void Start()
         {

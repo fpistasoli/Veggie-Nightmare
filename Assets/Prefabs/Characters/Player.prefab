@@ -88,6 +88,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5587794203285018438}
+  onEnemyAttack:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5587794203285018438
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,6 +171,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: VeggieNightmare.Attributes.PlayerHealth, Assembly-CSharp
         m_MethodName: Heal
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8696677318330967572, guid: 3a347b3a9975e954bbb9fe3474bcc87e, type: 3}
+        m_TargetAssemblyTypeName: VeggieNightmare.UI.HUDController, Assembly-CSharp
+        m_MethodName: OnHPUpdateUI
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -752,3 +767,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5587794203285018438}
+  onEnemyAttack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8696677318330967572, guid: 3a347b3a9975e954bbb9fe3474bcc87e, type: 3}
+        m_TargetAssemblyTypeName: VeggieNightmare.UI.HUDController, Assembly-CSharp
+        m_MethodName: OnHPUpdateUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
