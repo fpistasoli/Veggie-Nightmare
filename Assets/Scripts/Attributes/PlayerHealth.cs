@@ -49,6 +49,11 @@ namespace VeggieNightmare.Attributes
             healthPoints = Mathf.Min(healthPoints + healthBoost, 100);
         }
 
+        public float GetHealthPoints()
+        {
+            return healthPoints;
+        }
+
 
 
     }

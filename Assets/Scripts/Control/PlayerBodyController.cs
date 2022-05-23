@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using VeggieNightmare.Attributes;
 
 namespace VeggieNightmare.Control
@@ -9,6 +10,8 @@ namespace VeggieNightmare.Control
     public class PlayerBodyController : MonoBehaviour
     {
         [SerializeField] private GameObject player;
+
+        public UnityEvent<float> onEnemyAttack;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -18,7 +21,10 @@ namespace VeggieNightmare.Control
                 PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
                 playerHealth.TakeDamage(enemy, enemy.GetComponent<EvilVeggie>().GetDamagePoints());
 
+                onEnemyAttack?.Invoke(playerHealth.GetHealthPoints());
+
                 StartCoroutine(BlinkEffectCoroutine(player));
+
             }
         }
 
