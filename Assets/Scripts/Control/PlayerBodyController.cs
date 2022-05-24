@@ -23,7 +23,11 @@ namespace VeggieNightmare.Control
 
                 onEnemyAttack?.Invoke(playerHealth.GetHealthPoints());
 
-                StartCoroutine(BlinkEffectCoroutine(player));
+                if(!player.GetComponent<PlayerController>().IsDead())
+                {
+                    StartCoroutine(BlinkEffectCoroutine(player));
+                }
+                
 
             }
         }

@@ -61,9 +61,15 @@ namespace VeggieNightmare.Control
             PlayerHealth.onDeath -= OnDieHandler;
         }
 
-        private void OnDieHandler()
+        private void OnDieHandler() 
         {
             isDead = true;
+            GetComponent<Collider>().enabled = false;
+            body.GetComponent<Collider>().enabled = false;
+            rb.useGravity = false;
+            transform.localRotation = Quaternion.Euler(new Vector3(0,0,90)) * transform.localRotation;
+
+            Time.timeScale = 0;
         }
 
         void Update()
@@ -75,11 +81,20 @@ namespace VeggieNightmare.Control
                 MovePlayer();
                 MoveCamera();
                 if (IsGrounded()) { jumpCount = 0; }
+                if (FellIntoPit()) { health.KillPlayer(); }
                 ProcessInput();
+
+
             }
             
             UpdateAnimator();
 
+        }
+
+        private bool FellIntoPit()
+        {
+            Vector3 viewPortPosition = mainCamera.WorldToViewportPoint(transform.position);
+            return viewPortPosition.y < -0.1f; 
         }
 
         private void ProcessInput()
@@ -153,8 +168,7 @@ namespace VeggieNightmare.Control
             }
             else
             {
-                //Dead animation
-
+                animator.SetBool("isWalk", false);
             }
           
         }
@@ -240,6 +254,9 @@ namespace VeggieNightmare.Control
         }
 
         public float GetBlinkEffectTime() => blinkEffectTime;
+
+        public bool IsDead() => health.IsDead();
+
 
 
         /*

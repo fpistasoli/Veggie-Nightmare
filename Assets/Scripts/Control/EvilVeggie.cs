@@ -61,7 +61,7 @@ namespace VeggieNightmare.Control
         public void DestroyIfOutOfSight()
         {
             Vector3 viewportPosition = mainCamera.WorldToViewportPoint(transform.position);
-            if (viewportPosition.x < -0.1f) { Destroy(gameObject); }
+            if (viewportPosition.x < -0.1f || viewportPosition.y < -0.1f) { Destroy(gameObject); }
         }
 
         public void TakeDamage(GameObject instigator, float damage)

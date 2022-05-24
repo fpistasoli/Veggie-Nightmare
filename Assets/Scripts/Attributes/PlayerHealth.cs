@@ -32,7 +32,7 @@ namespace VeggieNightmare.Attributes
 
         public void TakeDamage(GameObject instigator, float damage)
         {
-            if(instigator.tag == "Enemy")
+            if (instigator == null || instigator.tag == "Enemy")
             {
                 healthPoints = Mathf.Max(0, healthPoints - damage);
             }
@@ -41,7 +41,7 @@ namespace VeggieNightmare.Attributes
             {
                 onDeath?.Invoke();
                 isDead = true;
-            }
+            }   
         }
 
         public void Heal(float healthBoost)
@@ -54,6 +54,15 @@ namespace VeggieNightmare.Attributes
             return healthPoints;
         }
 
+        public void KillPlayer()
+        {
+            TakeDamage(null, 100f); //fell into a pit
+        }
+
+        public bool IsDead()
+        {
+            return isDead;
+        }
 
 
     }

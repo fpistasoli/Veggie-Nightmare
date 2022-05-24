@@ -12,40 +12,55 @@ namespace VeggieNightmare.UI
 {
     public class HUDController : MonoBehaviour
     {
-
+        [SerializeField] private Button attackButton;
         [SerializeField] private Button jumpButton;
         [SerializeField] private GameObject player;
         [SerializeField] private Image healthBarInner;
-        [SerializeField] private TMP_Text scoreValue;
-        [SerializeField] private TMP_Text highScoreValue;
+        [SerializeField] private Text scoreValue;
+        [SerializeField] private Text highScoreValue;
+        [SerializeField] private GameObject gameOverPanel;
 
 
         private void Start()
         {
-          
+            gameOverPanel.SetActive(false);
         }
 
         private void OnEnable() //aca van las suscripciones a eventos
         {
             PlayerHealth.onDeath += OnGameOverUIHandler;
+            PlayerHealth.onDeath += OnHPUpdateUI;
+            PlayerHealth.onDeath += OnPlayerControlsDisabledUI;
             EvilVeggie.onEvilVeggieDamageTaken += OnScoreUpdateUI;
         }
 
-        private void OnScoreUpdateUI()
+        private void OnPlayerControlsDisabledUI()
         {
-            scoreValue.text = GameManager.score.ToString();
+            attackButton.enabled = false;
+            jumpButton.enabled = false;
         }
 
         private void OnDisable() //aca van las desuscripciones a eventos
         {
             PlayerHealth.onDeath -= OnGameOverUIHandler;
+            PlayerHealth.onDeath -= OnHPUpdateUI;
+            PlayerHealth.onDeath -= OnPlayerControlsDisabledUI;
             EvilVeggie.onEvilVeggieDamageTaken -= OnScoreUpdateUI;
+           
+        }
+        private void OnScoreUpdateUI()
+        {
+            scoreValue.text = GameManager.score.ToString();
         }
 
-        private void OnGameOverUIHandler()
+        private void OnGameOverUIHandler() //TODO
         {
-            
-            //TODO
+            gameOverPanel.SetActive(true);
+
+
+
+
+
 
         }
 
