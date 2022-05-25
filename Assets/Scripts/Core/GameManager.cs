@@ -44,6 +44,7 @@ namespace VeggieNightmare.Core
                 DontDestroyOnLoad(gameObject);
 
                 score = 0;
+                currentLevel = 1;
                 highScorePerLevel = new int[numberOfLevels];
                 RestoreHighScores();
             }
@@ -54,9 +55,11 @@ namespace VeggieNightmare.Core
 
         }
 
-        private void RestoreHighScores()
+        private void RestoreHighScores() //TODO
         {
-            //TODO: tomar los highscores de cada nivel de PlayerPrefs y guardarlos en highScoresPerLevel
+
+
+            //tomar los highscores de cada nivel de PlayerPrefs y guardarlos en highScoresPerLevel
 
         }
 

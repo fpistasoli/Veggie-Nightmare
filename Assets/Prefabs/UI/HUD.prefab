@@ -391,7 +391,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0000
+  m_Text: 0
 --- !u!1 &3430853771105337862
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,7 +667,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7192667599451830574}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8696677318330967572}
+        m_TargetAssemblyTypeName: VeggieNightmare.UI.HUDController, Assembly-CSharp
+        m_MethodName: BackToMenuButtonHandler
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4661628079064993700
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,7 +879,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1364406384204231879}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8696677318330967572}
+        m_TargetAssemblyTypeName: VeggieNightmare.UI.HUDController, Assembly-CSharp
+        m_MethodName: TryAgainButtonHandler
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5867936436035628761
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,7 +1124,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: 0
 --- !u!1 &7231462482185783205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,9 +1534,12 @@ MonoBehaviour:
   jumpButton: {fileID: 8696677317749649199}
   player: {fileID: 5587794203285018438, guid: 4bf21654926ec1d428706b1f5d167be7, type: 3}
   healthBarInner: {fileID: 167259383944145467}
+  levelValue: {fileID: 3735322632087140164}
   scoreValue: {fileID: 5990757048363595316}
   highScoreValue: {fileID: 5990405180235975555}
   gameOverPanel: {fileID: 1493007556}
+  tryAgainButton: {fileID: 8945047046681897472}
+  mainMenuButton: {fileID: 1986832166892772632}
 --- !u!1 &8696677318803308306
 GameObject:
   m_ObjectHideFlags: 0
@@ -1802,4 +1829,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: LEVEL
+  m_Text: STAGE
