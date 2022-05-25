@@ -83,7 +83,7 @@ namespace VeggieNightmare.Control
                 if (IsGrounded()) { jumpCount = 0; }
                 if (FellIntoPit()) { health.KillPlayer(); }
                 ProcessInput();
-
+                Debug.Log("IS GROUNDED? " + IsGrounded());
 
             }
             
@@ -223,7 +223,24 @@ namespace VeggieNightmare.Control
 
         public bool IsGrounded()
         {
-            return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+            bool res = false;
+
+            RaycastHit[] hits = Physics.RaycastAll(transform.position + new Vector3(0,0.5f,0), -Vector3.up,  0.6f);
+
+            if (hits.Length != 0)
+            {
+                for (int i = 0; i < hits.Length; i++)
+                {
+                    if (hits[i].collider.tag == "Ground")
+                    {
+                        res = true;
+                        break;
+                    }
+                }
+            }
+
+            return res; 
+
         }
 
 

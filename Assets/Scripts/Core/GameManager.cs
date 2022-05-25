@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using VeggieNightmare.Control;
+using VeggieNightmare.SceneManagement;
 using VeggieNightmare.Stats;
 
 namespace VeggieNightmare.Core
@@ -17,14 +18,29 @@ namespace VeggieNightmare.Core
         public static int[] highScorePerLevel;
         private int currentLevel;
 
+        public static event Action onNewHighScore;
+
         private void OnEnable()
         {
             EvilVeggie.onEvilVeggieDamageTaken += OnAwardPointsHandler;
+            MirrorExit.onStageComplete += OnSaveStageHighScore;
         }
 
         private void OnDisable()
         {
             EvilVeggie.onEvilVeggieDamageTaken -= OnAwardPointsHandler;
+            MirrorExit.onStageComplete -= OnSaveStageHighScore;
+        }
+
+        private void OnSaveStageHighScore()
+        {
+            int currentHighScore = highScorePerLevel[currentLevel - 1];
+
+            if(score > currentHighScore)
+            {
+                highScorePerLevel[currentLevel - 1] = score;
+                onNewHighScore?.Invoke();
+            }
         }
 
         private void OnAwardPointsHandler()
@@ -46,7 +62,11 @@ namespace VeggieNightmare.Core
                 score = 0;
                 currentLevel = 1;
                 highScorePerLevel = new int[numberOfLevels];
+
                 RestoreHighScores();
+
+
+
             }
             else
             {
@@ -57,9 +77,12 @@ namespace VeggieNightmare.Core
 
         private void RestoreHighScores() //TODO
         {
+           
+            // restore high scores from player prefs
+            // load high scores in highScorePerLevel
 
 
-            //tomar los highscores de cada nivel de PlayerPrefs y guardarlos en highScoresPerLevel
+
 
         }
 
@@ -78,8 +101,15 @@ namespace VeggieNightmare.Core
         // Update is called once per frame
         void Update()
         {
-            Debug.Log("SCORE: " + score);
+           
         }
+
+        public int GetNumberOfLevels() => numberOfLevels;
+
+
+
+
+
     }
 
 }

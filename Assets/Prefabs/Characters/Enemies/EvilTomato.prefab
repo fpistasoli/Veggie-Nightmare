@@ -1849,7 +1849,8 @@ MonoBehaviour:
   deathEffect: {fileID: 7179506278126468447}
   body: {fileID: 6887032491526258052}
   blinkEffectTime: 0.2
-  translationSpeed: 0
+  deathEffectDuration: 1
+  translationSpeed: 20
   maxSpeed: 2.5
   cameraViewOffset: 0.1
 --- !u!135 &536720124815784365
