@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using VeggieNightmare.Attributes;
 using VeggieNightmare.Control;
 using VeggieNightmare.Core;
+using VeggieNightmare.SceneManagement;
 
 namespace VeggieNightmare.UI
 {
@@ -20,15 +21,30 @@ namespace VeggieNightmare.UI
         [SerializeField] private Text levelValue;
         [SerializeField] private Text scoreValue;
         [SerializeField] private Text highScoreValue;
+
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private Button tryAgainButton;
         [SerializeField] private Button mainMenuButton;
 
+        [SerializeField] private GameObject stageCompletePanel;
+        [SerializeField] private Text stageCompleteText;
+        [SerializeField] private Text yourScoreText;
+        [SerializeField] private Text yourScoreValue;
+        [SerializeField] private Text bonusHPText;
+        [SerializeField] private Text bonusHPValue;
+        [SerializeField] private Text totalScoreText;
+        [SerializeField] private Text totalScoreValue;
+        [SerializeField] private Text newHighScoreText;
+
+        private bool newHighScore;
 
         private void Start()
         {
             gameOverPanel.SetActive(false);
+            stageCompletePanel.SetActive(false);
             levelValue.text = GameManager.sharedInstance.CurrentLevel.ToString();
+
+            newHighScore = false;
         }
 
         private void OnEnable() //aca van las suscripciones a eventos
@@ -37,12 +53,8 @@ namespace VeggieNightmare.UI
             PlayerHealth.onDeath += OnHPUpdateUI;
             PlayerHealth.onDeath += OnPlayerControlsDisabledUI;
             EvilVeggie.onEvilVeggieDamageTaken += OnScoreUpdateUI;
-        }
-
-        private void OnPlayerControlsDisabledUI()
-        {
-            attackButton.enabled = false;
-            jumpButton.enabled = false;
+            MirrorExit.onStageComplete += OnStageCompleteUI;
+            GameManager.onNewHighScore += OnNewHighScoreUI;
         }
 
         private void OnDisable() //aca van las desuscripciones a eventos
@@ -51,8 +63,110 @@ namespace VeggieNightmare.UI
             PlayerHealth.onDeath -= OnHPUpdateUI;
             PlayerHealth.onDeath -= OnPlayerControlsDisabledUI;
             EvilVeggie.onEvilVeggieDamageTaken -= OnScoreUpdateUI;
-           
+            MirrorExit.onStageComplete -= OnStageCompleteUI;
+            GameManager.onNewHighScore -= OnNewHighScoreUI;
+
         }
+
+        private void OnNewHighScoreUI()
+        {
+            newHighScore = true;
+        }
+
+        private void OnStageCompleteUI()
+        {
+
+            player.SetActive(false);
+            player.GetComponent<Rigidbody>().useGravity = false;
+
+            stageCompletePanel.SetActive(true);
+
+            HideStatsTexts();
+
+            ShowStats();
+        }
+
+        private void ShowStats()
+        {
+            StartCoroutine(ShowStatsCoroutine());
+        }
+
+        private IEnumerator ShowStatsCoroutine()
+        {
+            int score = GameManager.score;
+            yourScoreValue.text = score.ToString();
+
+            int bonusHPPoints = Mathf.RoundToInt(player.GetComponent<PlayerHealth>().GetHealthPoints());
+            bonusHPValue.text = bonusHPPoints.ToString();
+
+            int totalScore = score + bonusHPPoints;
+            totalScoreValue.text = totalScore.ToString();
+
+            yield return new WaitForSeconds(1.5f);
+            yourScoreText.gameObject.SetActive(true);
+            yourScoreValue.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1.5f);
+            bonusHPText.gameObject.SetActive(true);
+            bonusHPValue.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1.5f);
+            totalScoreText.gameObject.SetActive(true);
+            totalScoreValue.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1.5f);
+
+            if (newHighScore)
+            {
+                StartCoroutine(FlashingTextEffect(newHighScoreText, 0.1f, 20));
+            }
+
+            yield return new WaitForSeconds(3f);
+
+            GameManager.score = 0;
+
+            if (GameManager.sharedInstance.CurrentLevel < GameManager.sharedInstance.GetNumberOfLevels())
+            {
+                GameManager.sharedInstance.CurrentLevel++;
+                SceneManager.LoadScene(GameManager.sharedInstance.CurrentLevel);
+            }
+            else
+            {
+
+                //LOAD END SCENE
+
+                //SceneManager.LoadScene(END SCENE);
+
+
+            }
+
+        }
+
+        private IEnumerator FlashingTextEffect(Text flashingText, float blinkTime, int totalBlinks)
+        {
+            for(int i=0; i<totalBlinks; i++)
+            {
+                flashingText.gameObject.SetActive(true);
+                yield return new WaitForSeconds(blinkTime);
+                flashingText.gameObject.SetActive(false);
+                yield return new WaitForSeconds(blinkTime);
+            }
+        }
+
+        private void HideStatsTexts()
+        {
+            yourScoreText.gameObject.SetActive(false);
+            yourScoreValue.gameObject.SetActive(false);
+            bonusHPText.gameObject.SetActive(false);
+            bonusHPValue.gameObject.SetActive(false);
+            totalScoreText.gameObject.SetActive(false);
+            totalScoreValue.gameObject.SetActive(false);
+            newHighScoreText.gameObject.SetActive(false);
+        }
+
+        private void OnPlayerControlsDisabledUI()
+        {
+            attackButton.enabled = false;
+            jumpButton.enabled = false;
+        }
+
         private void OnScoreUpdateUI()
         {
             scoreValue.text = GameManager.score.ToString();
@@ -92,6 +206,7 @@ namespace VeggieNightmare.UI
         public void BackToMenuButtonHandler()
         {
             Time.timeScale = 1;
+            GameManager.sharedInstance.CurrentLevel = 1;
             GameManager.score = 0;
             SceneManager.LoadScene(0);
         }
