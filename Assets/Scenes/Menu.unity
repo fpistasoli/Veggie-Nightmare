@@ -208,7 +208,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1053468325}
         m_TargetAssemblyTypeName: VeggieNightmare.UI.MainMenuController, Assembly-CSharp
-        m_MethodName: Play
+        m_MethodName: PlayIntro
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -722,7 +722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playButton: {fileID: 34116282}
-  quitButton: {fileID: 0}
+  quitButton: {fileID: 1457590561}
 --- !u!114 &1053468326
 MonoBehaviour:
   m_ObjectHideFlags: 0
