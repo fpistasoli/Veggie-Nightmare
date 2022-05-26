@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VeggieNightmare.Attributes;
 using VeggieNightmare.Control;
 using VeggieNightmare.SceneManagement;
 using VeggieNightmare.Stats;
@@ -12,12 +13,13 @@ namespace VeggieNightmare.Core
     {
         [SerializeField] private int numberOfLevels;
         [SerializeField] private int attackReward = 5;
+        [SerializeField] private GameObject player;
 
         public static GameManager sharedInstance;
         public static int score = 0;
-        public static int[] highScorePerLevel;
+        public static int[] highScorePerLevel; //player prefs keys: highScore1, highScore2, highScore3
         private int currentLevel;
-
+       
         public static event Action onNewHighScore;
 
         private void OnEnable()
@@ -36,9 +38,13 @@ namespace VeggieNightmare.Core
         {
             int currentHighScore = highScorePerLevel[currentLevel - 1];
 
-            if(score > currentHighScore)
+            int bonusHPPoints = Mathf.RoundToInt(player.GetComponent<PlayerHealth>().GetHealthPoints());
+
+            int totalScore = score + bonusHPPoints;
+
+            if(totalScore > currentHighScore)
             {
-                highScorePerLevel[currentLevel - 1] = score;
+                highScorePerLevel[currentLevel - 1] = totalScore;
                 onNewHighScore?.Invoke();
             }
         }
@@ -64,9 +70,6 @@ namespace VeggieNightmare.Core
                 highScorePerLevel = new int[numberOfLevels];
 
                 RestoreHighScores();
-
-
-
             }
             else
             {
@@ -75,14 +78,20 @@ namespace VeggieNightmare.Core
 
         }
 
-        private void RestoreHighScores() //TODO
+        private void RestoreHighScores()
         {
-           
-            // restore high scores from player prefs
-            // load high scores in highScorePerLevel
-
-
-
+            for(int i=0; i<numberOfLevels; i++)
+            {
+                if (PlayerPrefs.HasKey("highScore" + (i+1).ToString()))
+                {
+                    highScorePerLevel[i] = PlayerPrefs.GetInt("highScore" + (i+1).ToString());
+                }
+                else
+                {
+                    PlayerPrefs.SetInt("highScore" + (i+1).ToString(), 0);
+                    highScorePerLevel[i] = 0;
+                }
+            }
 
         }
 
@@ -95,7 +104,7 @@ namespace VeggieNightmare.Core
         // Start is called before the first frame update
         void Start()
         {
-
+            //player = GameObject.FindWithTag("Player"); 
         }
 
         // Update is called once per frame
