@@ -26,9 +26,9 @@ namespace VeggieNightmare.UI
 
         }
 
-        public void Play()
+        public void PlayIntro()
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(4); //intro scene
         }
 
         public void Quit()
