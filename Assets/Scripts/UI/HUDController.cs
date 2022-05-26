@@ -21,10 +21,11 @@ namespace VeggieNightmare.UI
         [SerializeField] private Text levelValue;
         [SerializeField] private Text scoreValue;
         [SerializeField] private Text highScoreValue;
+        [SerializeField] private Button pauseButton;
 
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private Button tryAgainButton;
-        [SerializeField] private Button mainMenuButton;
+        [SerializeField] private Button mainMenuButton;   
 
         [SerializeField] private GameObject stageCompletePanel;
         [SerializeField] private Text stageCompleteText;
@@ -37,6 +38,8 @@ namespace VeggieNightmare.UI
         [SerializeField] private Text newHighScoreText;
 
         private bool newHighScore;
+        private int indexActiveScene;
+        private bool isPaused = false;
 
         private void Start()
         {
@@ -44,7 +47,11 @@ namespace VeggieNightmare.UI
             stageCompletePanel.SetActive(false);
             levelValue.text = GameManager.sharedInstance.CurrentLevel.ToString();
 
+            indexActiveScene = SceneManager.GetActiveScene().buildIndex;
+            highScoreValue.text = GameManager.highScorePerLevel[indexActiveScene - 1].ToString();
             newHighScore = false;
+
+            OnHPUpdateUI();
         }
 
         private void OnEnable() //aca van las suscripciones a eventos
@@ -115,6 +122,9 @@ namespace VeggieNightmare.UI
 
             if (newHighScore)
             {
+                PlayerPrefs.SetInt("highScore" + indexActiveScene.ToString(), totalScore);
+                //GameManager.highScorePerLevel[indexActiveScene-1] = totalScore; //already done in GameManager
+
                 StartCoroutine(FlashingTextEffect(newHighScoreText, 0.1f, 20));
             }
 
@@ -167,12 +177,18 @@ namespace VeggieNightmare.UI
             jumpButton.enabled = false;
         }
 
+        private void OnPlayerControlsEnabledUI()
+        {
+            attackButton.enabled = true;
+            jumpButton.enabled = true;
+        }
+
         private void OnScoreUpdateUI()
         {
             scoreValue.text = GameManager.score.ToString();
         }
 
-        private void OnGameOverUIHandler() //TODO
+        private void OnGameOverUIHandler() 
         {
             gameOverPanel.SetActive(true);
         }
@@ -209,6 +225,22 @@ namespace VeggieNightmare.UI
             GameManager.sharedInstance.CurrentLevel = 1;
             GameManager.score = 0;
             SceneManager.LoadScene(0);
+        }
+
+        public void Pause()
+        {
+            if(isPaused)
+            {
+                isPaused = false;
+                Time.timeScale = 1;
+                OnPlayerControlsEnabledUI();
+            }
+            else
+            {
+                isPaused = true;
+                Time.timeScale = 0;
+                OnPlayerControlsDisabledUI();
+            }
         }
 
 

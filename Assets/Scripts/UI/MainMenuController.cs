@@ -10,6 +10,7 @@ namespace VeggieNightmare.UI
     {
 
         [SerializeField] private Button playButton;
+        [SerializeField] private Button quitButton;
 
 
         // Start is called before the first frame update
@@ -28,6 +29,11 @@ namespace VeggieNightmare.UI
         public void Play()
         {
             SceneManager.LoadScene(1);
+        }
+
+        public void Quit()
+        {
+            Application.Quit();
         }
 
     }
