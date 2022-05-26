@@ -139,12 +139,8 @@ namespace VeggieNightmare.UI
             }
             else
             {
-
-                //LOAD END SCENE
-
-                //SceneManager.LoadScene(END SCENE);
-
-
+                GameManager.sharedInstance.CurrentLevel = 1;
+                SceneManager.LoadScene(5);
             }
 
         }

@@ -34,13 +34,13 @@ namespace VeggieNightmare.UI
         {
             yield return new WaitForSeconds(1f);
             text1.gameObject.SetActive(true);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(4f);
             text2.gameObject.SetActive(true);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(4f);
             text3.gameObject.SetActive(true);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
             loadingText.gameObject.SetActive(true);
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(4f);
             SceneManager.LoadScene(1);
         }
     }
