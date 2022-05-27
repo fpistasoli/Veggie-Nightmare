@@ -63,16 +63,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9812a1df0b25df41ac242106a508f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  jumpForce: 5
-  maxVerticalVelocityToJump: 2
+  speed: 3.5
+  jumpForce: 5.5
+  maxVerticalVelocityToJump: 3
   minVerticalVelocityToJump: 0
   maxVelocity: 10
   laserBeamPrefab: {fileID: 4300734935795248263, guid: 411cd470ef1e0a24f896076b807a2ee1, type: 3}
   laserBeamSpawnPoint: {fileID: 2449284950047921925}
   body: {fileID: 6273634664630880327}
   timeBetweenlaserAttacks: 0.4
-  blinkEffectTime: 0.5
+  blinkEffectTime: 0.1
   onFullHealthTap:
     m_PersistentCalls:
       m_Calls:
@@ -88,7 +88,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8696677318330967572, guid: 3a347b3a9975e954bbb9fe3474bcc87e, type: 3}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: VeggieNightmare.UI.HUDController, Assembly-CSharp
         m_MethodName: OnHPUpdateUI
         m_Mode: 1
@@ -141,6 +141,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 5587794203285018438}
+    - target: {fileID: 1870566297739137670, guid: 101f4e7ca0813354aaaea94a404c7e19, type: 3}
+      propertyPath: onEnemyAttack.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6230509179157527353, guid: 101f4e7ca0813354aaaea94a404c7e19, type: 3}
       propertyPath: m_RootOrder
       value: 0
