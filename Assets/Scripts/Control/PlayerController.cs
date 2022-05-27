@@ -26,7 +26,7 @@ namespace VeggieNightmare.Control
         private bool isDead = false;
         private float laserAttackTimer = 0f;
         private int jumpCount = 0;
-        private int maxJumps = 2;
+        private int maxJumps = 1;
         private float distToGround;
         private Vector3 playerVelocity;
         private float fullHealth = 100f;
