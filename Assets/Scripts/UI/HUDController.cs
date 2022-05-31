@@ -41,6 +41,7 @@ namespace VeggieNightmare.UI
         private int indexActiveScene;
         private bool isPaused = false;
 
+
         private void Start()
         {
             gameOverPanel.SetActive(false);
@@ -48,10 +49,13 @@ namespace VeggieNightmare.UI
             levelValue.text = GameManager.sharedInstance.CurrentLevel.ToString();
 
             indexActiveScene = SceneManager.GetActiveScene().buildIndex;
-            highScoreValue.text = GameManager.highScorePerLevel[indexActiveScene - 1].ToString();
+            //highScoreValue.text = GameManager.highScorePerLevel[indexActiveScene - 1].ToString();
+            highScoreValue.text = PlayerPrefs.GetInt("highScore" + GameManager.sharedInstance.CurrentLevel).ToString(); 
+
             newHighScore = false;
 
             OnHPUpdateUI();
+
         }
 
         private void OnEnable() //aca van las suscripciones a eventos
@@ -108,6 +112,8 @@ namespace VeggieNightmare.UI
 
             int totalScore = score + bonusHPPoints;
             totalScoreValue.text = totalScore.ToString();
+            //totalScoreValue.text = GameManager.totalScore.ToString();
+
 
             yield return new WaitForSeconds(1.5f);
             yourScoreText.gameObject.SetActive(true);
@@ -122,7 +128,7 @@ namespace VeggieNightmare.UI
 
             if (newHighScore)
             {
-                PlayerPrefs.SetInt("highScore" + indexActiveScene.ToString(), totalScore);
+                //PlayerPrefs.SetInt("highScore" + indexActiveScene.ToString(), totalScore);
                 //GameManager.highScorePerLevel[indexActiveScene-1] = totalScore; //already done in GameManager
 
                 StartCoroutine(FlashingTextEffect(newHighScoreText, 0.1f, 20));
@@ -131,6 +137,8 @@ namespace VeggieNightmare.UI
             yield return new WaitForSeconds(3f);
 
             GameManager.score = 0;
+
+            //newHighScore = false;
 
             if (GameManager.sharedInstance.CurrentLevel < GameManager.sharedInstance.GetNumberOfLevels())
             {

@@ -17,7 +17,8 @@ namespace VeggieNightmare.Core
 
         public static GameManager sharedInstance;
         public static int score = 0;
-        public static int[] highScorePerLevel; //player prefs keys: highScore1, highScore2, highScore3
+
+        //public static int[] highScorePerLevel; //player prefs keys: highScore1, highScore2, highScore3
         private int currentLevel;
        
         public static event Action onNewHighScore;
@@ -36,7 +37,8 @@ namespace VeggieNightmare.Core
 
         private void OnSaveStageHighScore()
         {
-            int currentHighScore = highScorePerLevel[currentLevel - 1];
+            //int currentHighScore = highScorePerLevel[currentLevel - 1];
+            int currentHighScore = PlayerPrefs.GetInt("highScore" + currentLevel); 
 
             int bonusHPPoints = Mathf.RoundToInt(player.GetComponent<PlayerHealth>().GetHealthPoints());
 
@@ -44,7 +46,11 @@ namespace VeggieNightmare.Core
 
             if(totalScore > currentHighScore)
             {
-                highScorePerLevel[currentLevel - 1] = totalScore;
+                PlayerPrefs.SetInt("highScore" + currentLevel, totalScore);
+                PlayerPrefs.Save();
+
+
+                // highScorePerLevel[currentLevel - 1] = totalScore;
                 onNewHighScore?.Invoke();
             }
         }
@@ -67,7 +73,7 @@ namespace VeggieNightmare.Core
 
                 score = 0;
                 currentLevel = 1;
-                highScorePerLevel = new int[numberOfLevels];
+                //highScorePerLevel = new int[numberOfLevels];
 
                 RestoreHighScores();
             }
@@ -82,14 +88,15 @@ namespace VeggieNightmare.Core
         {
             for(int i=0; i<numberOfLevels; i++)
             {
-                if (PlayerPrefs.HasKey("highScore" + (i+1).ToString()))
+                if (PlayerPrefs.HasKey("highScore" + i+1))
                 {
-                    highScorePerLevel[i] = PlayerPrefs.GetInt("highScore" + (i+1).ToString());
+                    //highScorePerLevel[i] = PlayerPrefs.GetInt("highScore" + (i+1).ToString());
                 }
                 else
                 {
-                    PlayerPrefs.SetInt("highScore" + (i+1).ToString(), 0);
-                    highScorePerLevel[i] = 0;
+                    PlayerPrefs.SetInt("highScore" + i+1, 0);
+                    PlayerPrefs.Save();
+                    //highScorePerLevel[i] = 0;
                 }
             }
 

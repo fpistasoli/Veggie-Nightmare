@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using VeggieNightmare.Attributes;
+using VeggieNightmare.UI;
 
 namespace VeggieNightmare.Control
 {
@@ -34,14 +36,17 @@ namespace VeggieNightmare.Control
         {
             if(other.gameObject.tag == "Player")
             {
+                other.gameObject.GetComponent<PlayerHealth>().Heal(healthBoost);
                 onHeal?.Invoke(healthBoost); //UnityEvent
+                GameObject hudGO = GameObject.Find("HUD"); //lo hago asi porque no me lo toma si lo hago con unity event
+                hudGO.GetComponent<HUDController>().OnHPUpdateUI(); 
                 Destroy(gameObject);
-            }
+            } 
         }
 
 
 
-
+            
     }
 
 

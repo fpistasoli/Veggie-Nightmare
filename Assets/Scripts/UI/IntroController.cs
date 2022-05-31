@@ -43,6 +43,13 @@ namespace VeggieNightmare.UI
             yield return new WaitForSeconds(4f);
             SceneManager.LoadScene(1);
         }
+
+        public void SkipIntro()
+        {
+            SceneManager.LoadScene(1);
+        }
+
+
     }
 
 
