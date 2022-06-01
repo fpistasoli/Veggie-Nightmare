@@ -30,6 +30,7 @@ namespace VeggieNightmare.Control
         private float distToGround;
         private Vector3 playerVelocity;
         private float fullHealth = 100f;
+        private bool hitPlatformSide = false;
 
         private Animator animator;
         private Rigidbody rb;
@@ -72,24 +73,32 @@ namespace VeggieNightmare.Control
             Time.timeScale = 0;
         }
 
+
         void Update()
         {
 
             if (!isDead)
             {
                 UpdatePlayerVelocity();
-                MovePlayer();
-                MoveCamera();
+
+                if(!hitPlatformSide)
+                {
+                    MovePlayer();
+                    MoveCamera();
+                }
+
                 if (IsGrounded()) { jumpCount = 0; }
+
                 if (FellIntoPit()) { health.KillPlayer(); }
+
                 ProcessInput();
-                Debug.Log("IS GROUNDED? " + IsGrounded());
 
             }
             
             UpdateAnimator();
 
         }
+
 
         private bool FellIntoPit()
         {
@@ -274,7 +283,21 @@ namespace VeggieNightmare.Control
 
         public bool IsDead() => health.IsDead();
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            if(collision.gameObject.tag == "PlatformSide")
+            {
+                hitPlatformSide = true;
+            }
+        }
 
+        private void OnCollisionExit(Collision collision)
+        {
+            if (collision.gameObject.tag == "PlatformSide")
+            {
+                hitPlatformSide = false;
+            }
+        }
 
         /*
         private void OnTriggerEnter(Collider other)

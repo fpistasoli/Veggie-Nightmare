@@ -34,7 +34,7 @@ namespace VeggieNightmare.Weapons
         private void DestroyIfOutOfSight()
         {
             Vector3 viewportPosition = mainCamera.WorldToViewportPoint(transform.position);
-            if (viewportPosition.x > 1) { Destroy(gameObject); }
+            if (viewportPosition.x > 1) Destroy(gameObject);
         }
 
         private void Move()

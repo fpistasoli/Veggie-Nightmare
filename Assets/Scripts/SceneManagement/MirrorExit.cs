@@ -14,13 +14,12 @@ namespace VeggieNightmare.SceneManagement
 
         private void OnTriggerStay(Collider other)
         {
-
-            if(other.tag == "Player")
+            if (other.tag == "Player")
             {
-                if(!hasReachedExit && other.GetComponent<PlayerController>().IsGrounded())
+                if (!hasReachedExit && other.GetComponent<PlayerController>().IsGrounded())
                 {
                     hasReachedExit = true;
-                    
+
                     GameObject player = other.gameObject;
                     player.transform.localRotation = Quaternion.Euler(new Vector3(0, -90, 0)) * player.transform.localRotation;
 
@@ -34,7 +33,6 @@ namespace VeggieNightmare.SceneManagement
             yield return new WaitForSeconds(1f);
 
             onStageComplete?.Invoke();
-
         }
     }
 
