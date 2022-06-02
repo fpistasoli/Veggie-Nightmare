@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2909915173950493839}
   - component: {fileID: 1118844508361351237}
   - component: {fileID: 4965031234416266404}
+  - component: {fileID: 7658793552100561950}
   m_Layer: 0
   m_Name: EA_Planks_01a_PRE
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,8 +92,21 @@ MeshCollider:
   m_GameObject: {fileID: 1478890792849883536}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2910319872626960813, guid: c8ca29d97df45bc449f7eaf457b3d209, type: 3}
+--- !u!65 &7658793552100561950
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478890792849883536}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9364263, y: 0.19784468, z: 1.9547821}
+  m_Center: {x: -0.036654655, y: 0.061783135, z: -0.019405782}
