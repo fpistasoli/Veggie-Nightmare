@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using VeggieNightmare.Stats;
+using VeggieNightmare.Core;
 
 namespace VeggieNightmare.Control
 {
@@ -68,12 +69,18 @@ namespace VeggieNightmare.Control
         {
             if (instigator.tag == "Player")
             {
+                AudioSource src = mainCamera.GetComponent<AudioSource>();
+                src.PlayOneShot(AudioManager.sharedInstance.GetClip(6));
+
                 healthPoints = Mathf.Max(0, healthPoints - damage);
                 onEvilVeggieDamageTaken?.Invoke();
             }
 
             if (healthPoints == 0)
             {
+                AudioSource src = mainCamera.GetComponent<AudioSource>();
+                src.PlayOneShot(AudioManager.sharedInstance.GetClip(7));
+
                 isDead = true;
 
                 GetComponent<Collider>().enabled = false;

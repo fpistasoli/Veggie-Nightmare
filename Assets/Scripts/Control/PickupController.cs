@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using VeggieNightmare.Attributes;
+using VeggieNightmare.Core;
 using VeggieNightmare.UI;
 
 namespace VeggieNightmare.Control
@@ -36,6 +37,10 @@ namespace VeggieNightmare.Control
         {
             if(other.gameObject.tag == "Player")
             {
+
+                AudioSource src = mainCamera.GetComponent<AudioSource>();
+                src.PlayOneShot(AudioManager.sharedInstance.GetClip(5));
+
                 other.gameObject.GetComponent<PlayerHealth>().Heal(healthBoost);
                 onHeal?.Invoke(healthBoost); //UnityEvent
                 GameObject hudGO = GameObject.Find("HUD"); //lo hago asi porque no me lo toma si lo hago con unity event

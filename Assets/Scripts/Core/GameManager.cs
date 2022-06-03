@@ -111,7 +111,12 @@ namespace VeggieNightmare.Core
         // Start is called before the first frame update
         void Start()
         {
-            //player = GameObject.FindWithTag("Player"); 
+            /*
+            AudioClip clip = AudioManager.sharedInstance.GetClip(GameManager.sharedInstance.CurrentLevel);
+            AudioManager.sharedInstance.SetMusicPlaying(clip);
+            AudioManager.sharedInstance.Play();
+            */
+
         }
 
         // Update is called once per frame

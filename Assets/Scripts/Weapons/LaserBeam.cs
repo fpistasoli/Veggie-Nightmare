@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using VeggieNightmare.Control;
+using VeggieNightmare.Core;
 
 namespace VeggieNightmare.Weapons
 {
@@ -20,6 +21,10 @@ namespace VeggieNightmare.Weapons
         void Start()
         {
             mainCamera = Camera.main;
+
+            AudioSource src = mainCamera.GetComponent<AudioSource>();
+            src.PlayOneShot(AudioManager.sharedInstance.GetClip(13));
+
             player = GameObject.FindWithTag("Player");
         }
 
