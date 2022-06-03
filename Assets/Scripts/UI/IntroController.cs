@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using VeggieNightmare.Core;
 
 namespace VeggieNightmare.UI
 {
@@ -41,11 +42,16 @@ namespace VeggieNightmare.UI
             yield return new WaitForSeconds(2f);
             loadingText.gameObject.SetActive(true);
             yield return new WaitForSeconds(4f);
+
+            AudioManager.sharedInstance.GetComponent<AudioSource>().Stop();
+
             SceneManager.LoadScene(1);
         }
 
         public void SkipIntro()
         {
+            AudioManager.sharedInstance.GetComponent<AudioSource>().Stop();
+
             SceneManager.LoadScene(1);
         }
 

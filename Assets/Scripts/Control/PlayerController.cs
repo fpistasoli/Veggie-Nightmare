@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using VeggieNightmare.Attributes;
+using VeggieNightmare.Core;
 
 namespace VeggieNightmare.Control
 {
@@ -152,6 +153,10 @@ namespace VeggieNightmare.Control
                             {
                                 if (hits[i].collider.tag == "FullHeartBoost")
                                 {
+
+                                    AudioSource src = mainCamera.GetComponent<AudioSource>();
+                                    src.PlayOneShot(AudioManager.sharedInstance.GetClip(8));
+
                                     onFullHealthTap?.Invoke(fullHealth);
                                     fullHeartBoostViewable.SetActive(false);
                                     break;
@@ -199,6 +204,9 @@ namespace VeggieNightmare.Control
             jumpCount++;
             if (rb.velocity.y >= minVerticalVelocityToJump && rb.velocity.y <= maxVerticalVelocityToJump) 
             {
+                AudioSource src = mainCamera.GetComponent<AudioSource>();
+                src.PlayOneShot(AudioManager.sharedInstance.GetClip(11));
+
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
             }

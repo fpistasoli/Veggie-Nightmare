@@ -40,10 +40,14 @@ namespace VeggieNightmare.UI
         private bool newHighScore;
         private int indexActiveScene;
         private bool isPaused = false;
+        private AudioSource audioSource;
 
 
         private void Start()
         {
+            Camera mainCamera = Camera.main;
+            audioSource = mainCamera.GetComponent<AudioSource>();
+
             gameOverPanel.SetActive(false);
             stageCompletePanel.SetActive(false);
             levelValue.text = GameManager.sharedInstance.CurrentLevel.ToString();
@@ -86,6 +90,9 @@ namespace VeggieNightmare.UI
 
         private void OnStageCompleteUI()
         {
+            audioSource.Stop();
+            AudioClip stageCompleteClip = AudioManager.sharedInstance.GetClip(15);
+            audioSource.PlayOneShot(stageCompleteClip);
 
             player.SetActive(false);
             player.GetComponent<Rigidbody>().useGravity = false;
@@ -114,27 +121,34 @@ namespace VeggieNightmare.UI
             totalScoreValue.text = totalScore.ToString();
             //totalScoreValue.text = GameManager.totalScore.ToString();
 
-
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(3f);
+            AudioClip statsAppearingClip = AudioManager.sharedInstance.GetClip(16);
+            audioSource.PlayOneShot(statsAppearingClip);
             yourScoreText.gameObject.SetActive(true);
             yourScoreValue.gameObject.SetActive(true);
-            yield return new WaitForSeconds(1.5f);
+
+            yield return new WaitForSeconds(1f);
+            audioSource.PlayOneShot(statsAppearingClip);
             bonusHPText.gameObject.SetActive(true);
             bonusHPValue.gameObject.SetActive(true);
-            yield return new WaitForSeconds(1.5f);
+
+            yield return new WaitForSeconds(1f);
+            audioSource.PlayOneShot(statsAppearingClip);
             totalScoreText.gameObject.SetActive(true);
             totalScoreValue.gameObject.SetActive(true);
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1f);
 
             if (newHighScore)
             {
                 //PlayerPrefs.SetInt("highScore" + indexActiveScene.ToString(), totalScore);
                 //GameManager.highScorePerLevel[indexActiveScene-1] = totalScore; //already done in GameManager
+                AudioClip newHighScoreClip = AudioManager.sharedInstance.GetClip(10);
+                audioSource.PlayOneShot(newHighScoreClip);
 
                 StartCoroutine(FlashingTextEffect(newHighScoreText, 0.1f, 20));
             }
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(4f);
 
             GameManager.score = 0;
 
@@ -143,11 +157,17 @@ namespace VeggieNightmare.UI
             if (GameManager.sharedInstance.CurrentLevel < GameManager.sharedInstance.GetNumberOfLevels())
             {
                 GameManager.sharedInstance.CurrentLevel++;
+
                 SceneManager.LoadScene(GameManager.sharedInstance.CurrentLevel);
             }
             else
             {
                 GameManager.sharedInstance.CurrentLevel = 1;
+
+
+
+
+
                 SceneManager.LoadScene(5);
             }
 
@@ -194,6 +214,9 @@ namespace VeggieNightmare.UI
 
         private void OnGameOverUIHandler() 
         {
+            audioSource.Stop();
+            audioSource.PlayOneShot(AudioManager.sharedInstance.GetClip(9));
+
             gameOverPanel.SetActive(true);
         }
 
@@ -228,6 +251,9 @@ namespace VeggieNightmare.UI
             Time.timeScale = 1;
             GameManager.sharedInstance.CurrentLevel = 1;
             GameManager.score = 0;
+
+            AudioManager.sharedInstance.GetComponent<AudioSource>().Play();
+
             SceneManager.LoadScene(0);
         }
 
@@ -235,12 +261,16 @@ namespace VeggieNightmare.UI
         {
             if(isPaused)
             {
+                audioSource.Play();
+
                 isPaused = false;
                 Time.timeScale = 1;
                 OnPlayerControlsEnabledUI();
             }
             else
             {
+                audioSource.Pause();
+
                 isPaused = true;
                 Time.timeScale = 0;
                 OnPlayerControlsDisabledUI();

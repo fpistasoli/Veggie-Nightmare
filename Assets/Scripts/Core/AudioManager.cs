@@ -9,12 +9,11 @@ namespace VeggieNightmare.Core
     {
 
         public static AudioManager sharedInstance;
+        private AudioSource musicPlaying;
 
         [SerializeField] private AudioClip[] audioClips;
 
-        private AudioSource musicPlaying;
-      
-
+        
         private void Awake()
         {
             if (sharedInstance == null)
@@ -29,39 +28,7 @@ namespace VeggieNightmare.Core
 
         }
 
-
-        private void Start()
-        {
-
-
-            if(SceneManager.GetActiveScene().buildIndex == 0)
-            {
-
-                musicPlaying = GetComponent<AudioSource>();
-
-                musicPlaying.clip = audioClips[0];
-
-                musicPlaying.Play();
-
-
-            }
-            
-
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
+        public AudioClip GetClip(int i) => audioClips[i];
 
     }
 }

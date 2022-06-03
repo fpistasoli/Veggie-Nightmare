@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using VeggieNightmare.Core;
 
 namespace VeggieNightmare.UI
 {
@@ -22,7 +23,9 @@ namespace VeggieNightmare.UI
         {
             yield return new WaitForSeconds(1f);
             congratsText.gameObject.SetActive(true);
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForSeconds(10f);
+
+            AudioManager.sharedInstance.GetComponent<AudioSource>().Play();
             SceneManager.LoadScene(0);
         }
 
